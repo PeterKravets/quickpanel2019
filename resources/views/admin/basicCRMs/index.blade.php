@@ -1,11 +1,11 @@
 @extends('layouts.admin')
 @section('content')
 <div class="content">
-    @can('user_create')
+    @can('basic_c_r_m_create')
         <div style="margin-bottom: 10px;" class="row">
             <div class="col-lg-12">
-                <a class="btn btn-success" href="{{ route("admin.users.create") }}">
-                    {{ trans('global.add') }} {{ trans('global.user.title_singular') }}
+                <a class="btn btn-success" href="{{ route("admin.basic-c-r-ms.create") }}">
+                    {{ trans('global.add') }} {{ trans('global.basicCRM.title_singular') }}
                 </a>
             </div>
         </div>
@@ -15,7 +15,7 @@
 
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    {{ trans('global.user.title_singular') }} {{ trans('global.list') }}
+                    {{ trans('global.basicCRM.title_singular') }} {{ trans('global.list') }}
                 </div>
                 <div class="panel-body">
 
@@ -27,55 +27,29 @@
 
                                     </th>
                                     <th>
-                                        {{ trans('global.user.fields.name') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('global.user.fields.email') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('global.user.fields.email_verified_at') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('global.user.fields.roles') }}
-                                    </th>
-                                    <th>
                                         &nbsp;
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($users as $key => $user)
-                                    <tr data-entry-id="{{ $user->id }}">
+                                @foreach($basicCRMs as $key => $basicCRM)
+                                    <tr data-entry-id="{{ $basicCRM->id }}">
                                         <td>
 
                                         </td>
                                         <td>
-                                            {{ $user->name ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $user->email ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $user->email_verified_at ?? '' }}
-                                        </td>
-                                        <td>
-                                            @foreach($user->roles as $key => $item)
-                                                <span class="label label-info label-many">{{ $item->title }}</span>
-                                            @endforeach
-                                        </td>
-                                        <td>
-                                            @can('user_show')
-                                                <a class="btn btn-xs btn-primary" href="{{ route('admin.users.show', $user->id) }}">
+                                            @can('basic_c_r_m_show')
+                                                <a class="btn btn-xs btn-primary" href="{{ route('admin.basic-c-r-ms.show', $basicCRM->id) }}">
                                                     {{ trans('global.view') }}
                                                 </a>
                                             @endcan
-                                            @can('user_edit')
-                                                <a class="btn btn-xs btn-info" href="{{ route('admin.users.edit', $user->id) }}">
+                                            @can('basic_c_r_m_edit')
+                                                <a class="btn btn-xs btn-info" href="{{ route('admin.basic-c-r-ms.edit', $basicCRM->id) }}">
                                                     {{ trans('global.edit') }}
                                                 </a>
                                             @endcan
-                                            @can('user_delete')
-                                                <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                            @can('basic_c_r_m_delete')
+                                                <form action="{{ route('admin.basic-c-r-ms.destroy', $basicCRM->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                     <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
@@ -103,7 +77,7 @@
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.users.massDestroy') }}",
+    url: "{{ route('admin.basic-c-r-ms.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
@@ -127,7 +101,7 @@
     }
   }
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('user_delete')
+@can('basic_c_r_m_delete')
   dtButtons.push(deleteButton)
 @endcan
 

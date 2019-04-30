@@ -1,74 +1,83 @@
 @extends('layouts.admin')
 @section('content')
-@can('crm_note_create')
-    <div style="margin-bottom: 10px;" class="row">
-        <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route("admin.crm-notes.create") }}">
-                {{ trans('global.add') }} {{ trans('global.crmNote.title_singular') }}
-            </a>
+<div class="content">
+    @can('crm_note_create')
+        <div style="margin-bottom: 10px;" class="row">
+            <div class="col-lg-12">
+                <a class="btn btn-success" href="{{ route("admin.crm-notes.create") }}">
+                    {{ trans('global.add') }} {{ trans('global.crmNote.title_singular') }}
+                </a>
+            </div>
         </div>
-    </div>
-@endcan
-<div class="card">
-    <div class="card-header">
-        {{ trans('global.crmNote.title_singular') }} {{ trans('global.list') }}
-    </div>
+    @endcan
+    <div class="row">
+        <div class="col-lg-12">
 
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable">
-                <thead>
-                    <tr>
-                        <th width="10">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ trans('global.crmNote.title_singular') }} {{ trans('global.list') }}
+                </div>
+                <div class="panel-body">
 
-                        </th>
-                        <th>
-                            {{ trans('global.crmNote.fields.customer') }}
-                        </th>
-                        <th>
-                            {{ trans('global.crmNote.fields.note') }}
-                        </th>
-                        <th>
-                            &nbsp;
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($crmNotes as $key => $crmNote)
-                        <tr data-entry-id="{{ $crmNote->id }}">
-                            <td>
+                    <div class="table-responsive">
+                        <table class=" table table-bordered table-striped table-hover datatable">
+                            <thead>
+                                <tr>
+                                    <th width="10">
 
-                            </td>
-                            <td>
-                                {{ $crmNote->customer->first_name ?? '' }}
-                            </td>
-                            <td>
-                                {{ $crmNote->note ?? '' }}
-                            </td>
-                            <td>
-                                @can('crm_note_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.crm-notes.show', $crmNote->id) }}">
-                                        {{ trans('global.view') }}
-                                    </a>
-                                @endcan
-                                @can('crm_note_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.crm-notes.edit', $crmNote->id) }}">
-                                        {{ trans('global.edit') }}
-                                    </a>
-                                @endcan
-                                @can('crm_note_delete')
-                                    <form action="{{ route('admin.crm-notes.destroy', $crmNote->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                    </form>
-                                @endcan
-                            </td>
+                                    </th>
+                                    <th>
+                                        {{ trans('global.crmNote.fields.customer') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('global.crmNote.fields.note') }}
+                                    </th>
+                                    <th>
+                                        &nbsp;
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($crmNotes as $key => $crmNote)
+                                    <tr data-entry-id="{{ $crmNote->id }}">
+                                        <td>
 
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                                        </td>
+                                        <td>
+                                            {{ $crmNote->customer->first_name ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $crmNote->note ?? '' }}
+                                        </td>
+                                        <td>
+                                            @can('crm_note_show')
+                                                <a class="btn btn-xs btn-primary" href="{{ route('admin.crm-notes.show', $crmNote->id) }}">
+                                                    {{ trans('global.view') }}
+                                                </a>
+                                            @endcan
+                                            @can('crm_note_edit')
+                                                <a class="btn btn-xs btn-info" href="{{ route('admin.crm-notes.edit', $crmNote->id) }}">
+                                                    {{ trans('global.edit') }}
+                                                </a>
+                                            @endcan
+                                            @can('crm_note_delete')
+                                                <form action="{{ route('admin.crm-notes.destroy', $crmNote->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                                </form>
+                                            @endcan
+                                        </td>
+
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

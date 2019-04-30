@@ -7,20 +7,13 @@
 
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    {{ trans('global.show') }} {{ trans('global.crmStatus.title') }}
+                    {{ trans('global.show') }} {{ trans('global.basicCRM.title') }}
                 </div>
                 <div class="panel-body">
 
                     <table class="table table-bordered table-striped">
                         <tbody>
-                            <tr>
-                                <th>
-                                    {{ trans('global.crmStatus.fields.name') }}
-                                </th>
-                                <td>
-                                    {{ $crmStatus->name }}
-                                </td>
-                            </tr>
+
                         </tbody>
                     </table>
 

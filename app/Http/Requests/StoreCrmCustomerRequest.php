@@ -17,12 +17,19 @@ class StoreCrmCustomerRequest extends FormRequest
         return [
             'first_name' => [
                 'required',
-                'max:255',
-                'in:abc,asd'
+                'min:2',
+            ],
+            'last_name'  => [
+                'required',
+                'min:50',
+                'max:155',
             ],
             'status_id'  => [
                 'required',
                 'integer',
+            ],
+            'phone'      => [
+                'required',
             ],
         ];
     }

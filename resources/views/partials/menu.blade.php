@@ -1,153 +1,118 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-4" style="min-height: 917px;">
-    <!-- Brand Logo -->
-    <a href="#" class="brand-link">
-        <span class="brand-text font-weight-light">{{ trans('global.site_title') }}</span>
-    </a>
+<aside class="main-sidebar">
+    <section class="sidebar" style="height: auto;">
+        <ul class="sidebar-menu tree" data-widget="tree">
+            <li>
+                <a href="{{ route("admin.home") }}">
+                    <i class="fas fa-tachometer-alt">
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <!-- Sidebar user (optional) -->
+                    </i>
+                    {{ trans('global.dashboard') }}
+                </a>
+            </li>
+            @can('user_management_access')
+                <li class="treeview">
+                    <a>
+                        <i class="fas fa-users">
 
-        <!-- Sidebar Menu -->
-        <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <li class="nav-item">
-                    <a href="{{ route("admin.home") }}" class="nav-link">
-                        <p>
-                            <i class="fas fa-tachometer-alt">
-
-                            </i>
-                            <span>{{ trans('global.dashboard') }}</span>
-                        </p>
+                        </i>
+                        <span>{{ trans('global.userManagement.title') }}</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
+                    <ul class="treeview-menu">
+                        @can('permission_access')
+                            <li class="{{ request()->is('admin/permissions') || request()->is('admin/permissions/*') ? 'active' : '' }}">
+                                <a href="{{ route("admin.permissions.index") }}">
+                                    <i class="fas fa-unlock-alt">
+
+                                    </i>
+                                    <span>{{ trans('global.permission.title') }}</span>
+                                </a>
+                            </li>
+                        @endcan
+                        @can('role_access')
+                            <li class="{{ request()->is('admin/roles') || request()->is('admin/roles/*') ? 'active' : '' }}">
+                                <a href="{{ route("admin.roles.index") }}">
+                                    <i class="fas fa-briefcase">
+
+                                    </i>
+                                    <span>{{ trans('global.role.title') }}</span>
+                                </a>
+                            </li>
+                        @endcan
+                        @can('user_access')
+                            <li class="{{ request()->is('admin/users') || request()->is('admin/users/*') ? 'active' : '' }}">
+                                <a href="{{ route("admin.users.index") }}">
+                                    <i class="fas fa-user">
+
+                                    </i>
+                                    <span>{{ trans('global.user.title') }}</span>
+                                </a>
+                            </li>
+                        @endcan
+                    </ul>
                 </li>
-                @can('user_management_access')
-                    <li class="nav-item has-treeview {{ request()->is('admin/permissions*') ? 'menu-open' : '' }} {{ request()->is('admin/roles*') ? 'menu-open' : '' }} {{ request()->is('admin/users*') ? 'menu-open' : '' }}">
-                        <a class="nav-link nav-dropdown-toggle">
-                            <i class="fas fa-users">
+            @endcan
+            @can('basic_c_r_m_access')
+                <li class="treeview">
+                    <a>
+                        <i class="fas fa-briefcase">
 
-                            </i>
-                            <p>
-                                <span>{{ trans('global.userManagement.title') }}</span>
-                                <i class="right fa fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            @can('permission_access')
-                                <li class="nav-item">
-                                    <a href="{{ route("admin.permissions.index") }}" class="nav-link {{ request()->is('admin/permissions') || request()->is('admin/permissions/*') ? 'active' : '' }}">
-                                        <i class="fas fa-unlock-alt">
-
-                                        </i>
-                                        <p>
-                                            <span>{{ trans('global.permission.title') }}</span>
-                                        </p>
-                                    </a>
-                                </li>
-                            @endcan
-                            @can('role_access')
-                                <li class="nav-item">
-                                    <a href="{{ route("admin.roles.index") }}" class="nav-link {{ request()->is('admin/roles') || request()->is('admin/roles/*') ? 'active' : '' }}">
-                                        <i class="fas fa-briefcase">
-
-                                        </i>
-                                        <p>
-                                            <span>{{ trans('global.role.title') }}</span>
-                                        </p>
-                                    </a>
-                                </li>
-                            @endcan
-                            @can('user_access')
-                                <li class="nav-item">
-                                    <a href="{{ route("admin.users.index") }}" class="nav-link {{ request()->is('admin/users') || request()->is('admin/users/*') ? 'active' : '' }}">
-                                        <i class="fas fa-user">
-
-                                        </i>
-                                        <p>
-                                            <span>{{ trans('global.user.title') }}</span>
-                                        </p>
-                                    </a>
-                                </li>
-                            @endcan
-                        </ul>
-                    </li>
-                @endcan
-                @can('basic_c_r_m_access')
-                    <li class="nav-item has-treeview {{ request()->is('admin/crm-statuses*') ? 'menu-open' : '' }} {{ request()->is('admin/crm-customers*') ? 'menu-open' : '' }} {{ request()->is('admin/crm-notes*') ? 'menu-open' : '' }} {{ request()->is('admin/crm-documents*') ? 'menu-open' : '' }}">
-                        <a class="nav-link nav-dropdown-toggle">
-                            <i class="fas fa-briefcase">
-
-                            </i>
-                            <p>
-                                <span>{{ trans('global.basicCRM.title') }}</span>
-                                <i class="right fa fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            @can('crm_status_access')
-                                <li class="nav-item">
-                                    <a href="{{ route("admin.crm-statuses.index") }}" class="nav-link {{ request()->is('admin/crm-statuses') || request()->is('admin/crm-statuses/*') ? 'active' : '' }}">
-                                        <i class="fas fa-folder">
-
-                                        </i>
-                                        <p>
-                                            <span>{{ trans('global.crmStatus.title') }}</span>
-                                        </p>
-                                    </a>
-                                </li>
-                            @endcan
-                            @can('crm_customer_access')
-                                <li class="nav-item">
-                                    <a href="{{ route("admin.crm-customers.index") }}" class="nav-link {{ request()->is('admin/crm-customers') || request()->is('admin/crm-customers/*') ? 'active' : '' }}">
-                                        <i class="fas fa-user-plus">
-
-                                        </i>
-                                        <p>
-                                            <span>{{ trans('global.crmCustomer.title') }}</span>
-                                        </p>
-                                    </a>
-                                </li>
-                            @endcan
-                            @can('crm_note_access')
-                                <li class="nav-item">
-                                    <a href="{{ route("admin.crm-notes.index") }}" class="nav-link {{ request()->is('admin/crm-notes') || request()->is('admin/crm-notes/*') ? 'active' : '' }}">
-                                        <i class="fas fa-sticky-note">
-
-                                        </i>
-                                        <p>
-                                            <span>{{ trans('global.crmNote.title') }}</span>
-                                        </p>
-                                    </a>
-                                </li>
-                            @endcan
-                            @can('crm_document_access')
-                                <li class="nav-item">
-                                    <a href="{{ route("admin.crm-documents.index") }}" class="nav-link {{ request()->is('admin/crm-documents') || request()->is('admin/crm-documents/*') ? 'active' : '' }}">
-                                        <i class="fas fa-folder">
-
-                                        </i>
-                                        <p>
-                                            <span>{{ trans('global.crmDocument.title') }}</span>
-                                        </p>
-                                    </a>
-                                </li>
-                            @endcan
-                        </ul>
-                    </li>
-                @endcan
-                <li class="nav-item">
-                    <a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
-                        <p>
-                            <i class="fas fa-sign-out-alt">
-
-                            </i>
-                            <span>{{ trans('global.logout') }}</span>
-                        </p>
+                        </i>
+                        <span>{{ trans('global.basicCRM.title') }}</span>
+                        <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
+                    <ul class="treeview-menu">
+                        @can('crm_status_access')
+                            <li class="{{ request()->is('admin/crm-statuses') || request()->is('admin/crm-statuses/*') ? 'active' : '' }}">
+                                <a href="{{ route("admin.crm-statuses.index") }}">
+                                    <i class="fas fa-folder">
+
+                                    </i>
+                                    <span>{{ trans('global.crmStatus.title') }}</span>
+                                </a>
+                            </li>
+                        @endcan
+                        @can('crm_customer_access')
+                            <li class="{{ request()->is('admin/crm-customers') || request()->is('admin/crm-customers/*') ? 'active' : '' }}">
+                                <a href="{{ route("admin.crm-customers.index") }}">
+                                    <i class="fas fa-user-plus">
+
+                                    </i>
+                                    <span>{{ trans('global.crmCustomer.title') }}</span>
+                                </a>
+                            </li>
+                        @endcan
+                        @can('crm_note_access')
+                            <li class="{{ request()->is('admin/crm-notes') || request()->is('admin/crm-notes/*') ? 'active' : '' }}">
+                                <a href="{{ route("admin.crm-notes.index") }}">
+                                    <i class="fas fa-sticky-note">
+
+                                    </i>
+                                    <span>{{ trans('global.crmNote.title') }}</span>
+                                </a>
+                            </li>
+                        @endcan
+                        @can('crm_document_access')
+                            <li class="{{ request()->is('admin/crm-documents') || request()->is('admin/crm-documents/*') ? 'active' : '' }}">
+                                <a href="{{ route("admin.crm-documents.index") }}">
+                                    <i class="fas fa-folder">
+
+                                    </i>
+                                    <span>{{ trans('global.crmDocument.title') }}</span>
+                                </a>
+                            </li>
+                        @endcan
+                    </ul>
                 </li>
-            </ul>
-        </nav>
-        <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
+            @endcan
+            <li>
+                <a href="#" onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
+                    <i class="fas fa-sign-out-alt">
+
+                    </i>
+                    {{ trans('global.logout') }}
+                </a>
+            </li>
+        </ul>
+    </section>
 </aside>
