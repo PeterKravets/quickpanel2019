@@ -23,7 +23,7 @@
                 </p>
             </div>
             <div class="form-group {{ $errors->has('last_name') ? 'has-error' : '' }}">
-                <label for="last_name">{{ trans('global.crmCustomer.fields.last_name') }}</label>
+                <label for="last_name">{{ trans('global.crmCustomer.fields.last_name') }}*</label>
                 <input type="text" id="last_name" name="last_name" class="form-control" value="{{ old('last_name', isset($crmCustomer) ? $crmCustomer->last_name : '') }}">
                 @if($errors->has('last_name'))
                     <p class="help-block">
@@ -60,7 +60,7 @@
                 </p>
             </div>
             <div class="form-group {{ $errors->has('phone') ? 'has-error' : '' }}">
-                <label for="phone">{{ trans('global.crmCustomer.fields.phone') }}</label>
+                <label for="phone">{{ trans('global.crmCustomer.fields.phone') }}*</label>
                 <input type="text" id="phone" name="phone" class="form-control" value="{{ old('phone', isset($crmCustomer) ? $crmCustomer->phone : '') }}">
                 @if($errors->has('phone'))
                     <p class="help-block">

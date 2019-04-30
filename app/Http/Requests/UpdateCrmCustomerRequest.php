@@ -17,10 +17,19 @@ class UpdateCrmCustomerRequest extends FormRequest
         return [
             'first_name' => [
                 'required',
+                'min:2',
+            ],
+            'last_name'  => [
+                'required',
+                'min:50',
+                'max:155',
             ],
             'status_id'  => [
                 'required',
                 'integer',
+            ],
+            'phone'      => [
+                'required',
             ],
         ];
     }
